@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -26,6 +27,7 @@ import com.example.ead_procument.model.Order;
 import com.example.ead_procument.model.Product;
 import com.example.ead_procument.model.Supplier;
 import com.example.ead_procument.model.User;
+import com.example.ead_procument.services.Calculation;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -94,6 +96,8 @@ public class OrderPlaceSitemanager extends AppCompatActivity {
         productSpinnerAdapter = new ProductSpinnerAdapter(this, OrderPlaceSitemanager.this, productList);
         product.setAdapter(productSpinnerAdapter);
 
+
+
         //supplier spinner implementation
         getSupplier();
         supplierSpinnerAdapter = new SupplierSpinnerAdapter(this, OrderPlaceSitemanager.this, supplierList);
@@ -118,7 +122,7 @@ public class OrderPlaceSitemanager extends AppCompatActivity {
                 } catch (Exception e) {
                     Log.e("error", e.toString());
                 }
-                float totalPrice = qty * Float.parseFloat(selectedProduct.getUnitprice());
+                float totalPrice = Calculation.totalAmountCal(qty,selectedProduct.getUnitprice());
                 total.setText(String.valueOf(totalPrice));
             }
         });

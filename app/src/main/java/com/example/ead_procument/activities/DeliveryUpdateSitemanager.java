@@ -22,6 +22,7 @@ import com.example.ead_procument.model.Order;
 import com.example.ead_procument.model.Product;
 import com.example.ead_procument.model.Supplier;
 import com.example.ead_procument.model.User;
+import com.example.ead_procument.services.Calculation;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -81,8 +82,8 @@ public class DeliveryUpdateSitemanager extends AppCompatActivity {
 
         Log.d("order 2", prop.getOrderId());
         int recQty = Integer.parseInt(qty.getText().toString());
-        int delQty = Integer.parseInt(prop.getNumoforderdeliver()) + recQty;
-        int ret = Integer.parseInt(prop.getNumberofunitorder()) - delQty;
+        int delQty = Calculation.deliveredQrt(prop.getNumoforderdeliver(),recQty);
+        int ret = Calculation.retrievedQty(prop.getNumberofunitorder(),delQty);
         Order order = new Order();
         order.setOrderId(prop.getOrderId());
         order.setUsername(User.username);

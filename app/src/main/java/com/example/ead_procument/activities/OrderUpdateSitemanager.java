@@ -24,6 +24,7 @@ import com.example.ead_procument.model.Order;
 import com.example.ead_procument.model.Product;
 import com.example.ead_procument.model.Supplier;
 import com.example.ead_procument.model.User;
+import com.example.ead_procument.services.Calculation;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -128,7 +129,7 @@ public class OrderUpdateSitemanager extends AppCompatActivity {
                 } catch (Exception e) {
                     Log.e("error", e.toString());
                 }
-                float totalPrice = qty * Float.parseFloat(selectedProduct.getUnitprice());
+                float totalPrice = Calculation.totalAmountCal(qty,selectedProduct.getUnitprice());
                 total.setText(String.valueOf(totalPrice));
             }
         });
